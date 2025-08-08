@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meera Bhog - Premium Flour Products</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #fff8e7;
+            color: #4a3f35;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: #f6eedc;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .logo img {
+            height: 50px; /* Adjust as needed */
+            vertical-align: middle;
+        }
+
+        nav {
+            position: relative; /* for dropdown */
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            user-select: none;
+        }
+
+        nav a,
+        nav button {
+            font-weight: bold;
+            color: #4a3f35;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            position: relative;
+            padding: 8px 6px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus,
+        nav button:hover,
+        nav button:focus {
+            color: #bfa181;
+            background-color: rgba(191, 161, 129, 0.1);
+            outline: none;
+        }
+
+        /* Dropdown styles for Brands */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(30, 30, 200, 0.12);
+            padding: 12px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.35s ease, visibility 0.3s;
+            z-index: 200;
+        }
+
+        .dropdown.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            text-decoration: none;
+            color: #4a3f35;
+            padding: 8px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-radius: 8px;
+        }
+
+        .dropdown-menu a:hover,
+        .dropdown-menu a:focus {
+            background-color: #f3e8d0;
+            color: #9a7d56;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.5);
+        }
+
+        .dropdown-toggle::after {
+            content: '';
+            border-style: solid;
+            border-width: 5px 5px 0 5px;
+            border-color: #4a3f35 transparent transparent transparent;
+            display: inline-block;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown.open .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        .hero {
+            background-color: #f4ebdc;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .hero button {
+            padding: 10px 20px;
+            background-color: #bfa181;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+        }
+
+        .highlight-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 200px;
+        }
+
+        .highlight-item h4 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 32px;
+      padding: 40px 20px;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+      height: 340px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .flip-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-sizing: border-box;
+      padding: 30px;
+    }
+
+    .flip-card-front {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #fff;
+      gap: 32px;
+    }
+
+    .flip-card-front img {
+      width: 200px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .card-text h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #5a3e1b;
+    }
+
+    .card-text ul {
+      list-style: disc;
+      padding-left: 20px;
+      margin-bottom: 16px;
+      color: #444;
+    }
+
+    .pack-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pack-size {
+      background-color: #bfa181;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background-color: #f4ebdc;
+      overflow-y: auto;
+    }
+
+    .flip-card-back h4 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+        footer {
+            background: #4a3f35;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            user-select: none;
+            width: 100%;
+        }
+
+        .full-width-img {
+            width: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                gap: 20px;
+                margin-top: 10px;
+            }
+
+            nav a,
+            nav button {
+                font-size: 15px;
+            }
+
+            .flip-card-front {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .flip-card-front img {
+        width: 180px;
+        margin-bottom: 16px;
+      }
+
+      .card-text {
+        text-align: center;
+      }
+
+      .card-text ul {
+        text-align: left;
+      }
+
+      .pack-sizes {
+        justify-content: center;
+      }
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">
+            <img src="Akshkuber logo.png" alt="SHANTIPURN" height="50">
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <div class="dropdown" id="brandsDropdown">
+                <button aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="brandsToggle">Brands</button>
+                <div class="dropdown-menu" role="menu" aria-labelledby="brandsToggle">
+                    <a href="Shantipurn.html" menuitem" tabindex="-1">Shantipurn </a>
+                    <a href="Charbhuja.html" role="menuitem" tabindex="-1">Charbhuja</a>
+                    <a href="BFM.html" role="menuitem" tabindex="-1">BFM</a>
+                    <a href="Meera_Bhog.html" role="menuitem" tabindex="-1">Meera Bhog</a>
+                </div>
+            </div>
+            <a href="quality.html">Quality</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <img src="Meera_Bhog_Baner.png" alt="Meera Bhog Premium Flour" class="full-width-img">
+    <img src="Choose_Meera Bhog.png" alt="Traditional Indian Cooking" class="full-width-img">
+
+    <section class="products-grid">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Meera_Bhog atta.png" alt="Atta">
+        <div class="card-text">
+          <h3>Chakki Fresh Atta</h3>
+          <ul>
+            <li>Stays fresh, rotis stay soft for hours</li>
+            <li>Milled under strict hygiene standards</li>
+            <li>Preferred by professionals and home chefs</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">5kg</span>
+            <span class="pack-size">10kg</span>
+            <span class="pack-size">30kg</span>
+            <span class="pack-size">45kg</span>
+            <span class="pack-size">50kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Chakki Fresh Atta is your key to soft, nourishing, and delicious flatbreads. Made from high-quality wheat, stone-milled to perfection, this atta retains essential nutrients and fiber, keeping your meals as healthy as they are tasty. With no maida or artificial blends, you can count on Meera Bhog Atta for perfect rotis, parathas, and everyday staples that your family will love.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Meera_Bhog maida.png" alt="Atta">
+        <div class="card-text">
+          <h3>Maida</h3>
+          <ul>
+            <li>No mixing with low-grade flour — 100% pure</li>
+            <li>Processes evenly for soft, light results</li>
+            <li>Perfect for crisp samosas and fluffy bhaturas</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">500g</span>
+            <span class="pack-size">1kg</span>
+            <span class="pack-size">30kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Refined Maida offers the fine quality and texture every chef desires. Carefully milled from superior wheat under hygienic conditions, it delivers the softness and elasticity required for crisp samosas, fluffy bhaturas, and a range of bakery delights. From home kitchens to professional bakeries, Meera Bhog ensures consistent performance, reliable results, and authentic taste in every batch.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="MeeraBhog Besan.png" alt="Atta">
+        <div class="card-text">
+          <h3>Besan</h3>
+          <ul>
+            <li>Freshly milled for superior aroma and quality</li>
+            <li>Free from chemicals and artificial additives</li>
+            <li>Hygienically processed to preserve freshness</li>
+          </ul>
+          <div class="pack-sizes">
+                <span class="pack-size">500g</span>
+                <span class="pack-size">1kg</span>
+                <span class="pack-size">30kg</span>
+            </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Besan is crafted from select chana dal, ground to perfection for a smooth, refined texture free from lumps. Known for its purity and freshness, it’s ideal for preparing crispy pakoras, soft dhoklas, melt-in-the-mouth laddoos, and rich kadhi. Completely free from additives or blending agents, this besan offers reliable performance, authentic flavor, and excellent binding with every use.
+        </p>
+      </div>
+    </div>
+  </div>    -->
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Meera_Bhog sooji.png" alt="Atta">
+        <div class="card-text">
+          <h3>Suji</h3>
+          <ul>
+            <li>Processed to reduce moisture retention</li>
+            <li>Naturally dense for better cooking yield</li>
+            <li>Designed for uniform swelling and softness</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">500g</span>
+            <span class="pack-size">1kg</span>
+            <span class="pack-size">30kg</span>
+            <span class="pack-size">50kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Suji is made from premium wheat, finely milled to provide a light, uniform texture perfect for daily cooking. From fluffy upma and soft idlis to delicious halwa, this suji delivers consistent results every time. With no additives or impurities, Meera Bhog Suji ensures clean, high-quality rava that cooks evenly and enhances every meal.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="MeeraBhog Dalia.png" alt="Atta">
+        <div class="card-text">
+          <h3>Dalia</h3>
+          <ul>
+            <li>Gently crushed for balanced texture retention</li>
+            <li>Coarse finish ensures satisfying mouthfeel</li>
+            <li>Carefully graded for size consistency</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">500g</span>
+            <span class="pack-size">1kg</span>
+            <span class="pack-size">30kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Dalia is crafted from high-quality whole wheat, crushed with care to maintain its natural fiber and nutrition. Slow roasting enhances its aroma and delivers a deep, nutty flavor, making it the perfect ingredient for porridge, khichdi, and other wholesome recipes. With even grain size and no added polish or chemicals, Meera Bhog Dalia ensures a nutritious, easy-to-cook meal that fits your healthy living routine.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Meera_Bhog Poha.png" alt="Poha">
+        <div class="card-text">
+          <h3>Poha</h3>
+          <ul>
+            <li>Optimized thickness prevents over-softening</li>
+            <li>Free from added polishing or surface treatments</li>
+            <li>Milled under strict hygiene protocols for safe use</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">800g</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Poha offers carefully processed flakes that retain their structure after soaking for ideal texture and volume. The uniform size ensures balanced softness without stickiness, making every batch consistent. Free from polishing and artificial additives, Meera Bhog Poha provides a clean, high-quality option for daily use.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="MeeraBhog Sharbati Wheat.png" alt="Atta">
+        <div class="card-text">
+          <h3>Sharbati Wheat</h3>
+          <ul>
+            <li>Fine milling preserves wheat’s natural character</li>
+            <li>Ideal moisture balance for longer shelf stability</li>
+            <li>Carefully handled to avoid nutrient loss during processing</li>
+          </ul>
+          <div class="pack-sizes">
+            <span class="pack-size">30kg</span>
+            <span class="pack-size">50kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Sharbati Wheat is made from carefully chosen golden wheat grains, celebrated for their natural sweetness and high quality. The flour is finely milled to ensure softness, rich nutrition, and rotis that are light, fluffy, and stay soft longer. With zero added maida or artificial chemicals, Meera Bhog Sharbati Wheat flour provides pure, nutritious goodness for your everyday meals.
+        </p>
+      </div>
+    </div>
+  </div>    -->
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="MeeraBhog Halwai Special Maida.png" alt="Atta">
+        <div class="card-text">
+          <h3>Halwai Special Maida</h3>
+          <ul>
+            <li>Maintains structure under extended cooking times</li>
+            <li>Ideal for achieving crisp exteriors with soft interiors</li>
+            <li>Hygienically processed to meet commercial standards</li>
+          </ul>
+          <div class="pack-sizes">
+                <span class="pack-size">30kg</span>
+                <span class="pack-size">45kg</span>
+                <span class="pack-size">50kg</span>
+            </div>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h4>Product Details</h4>
+        <p>
+          Meera Bhog Halwai Special Maida is crafted for culinary experts and perfectionists. With its ultra-fine, smooth texture, it provides excellent binding and softness, ensuring a flawless finish for all your creations. Be it classic Indian sweets, crisp samosas, fluffy bhaturas, or bakery delights, Meera Bhog Maida promises reliable, high-quality results — perfect for halwais and passionate home chefs alike.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Add another card below as needed (copy-paste the flip-card block) -->
+
+</section>
+
+    <footer>
+        <p>📍 Banera, Rajasthan | ☎️ +91 9929414444 | ✉️ shantipurnindia@gmail.com</p>
+        <p>© 2025 SHANTIPURN</p>
+    </footer>
+
+    <script>
+        (function() {
+            const brandsDropdown = document.getElementById('brandsDropdown');
+            const toggleButton = document.getElementById('brandsToggle');
+            const menu = brandsDropdown.querySelector('.dropdown-menu');
+            let open = false;
+
+            function openDropdown() {
+                brandsDropdown.classList.add('open');
+                toggleButton.setAttribute('aria-expanded', 'true');
+                open = true;
+            }
+            function closeDropdown() {
+                brandsDropdown.classList.remove('open');
+                toggleButton.setAttribute('aria-expanded', 'false');
+                open = false;
+            }
+            toggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (open) closeDropdown();
+                else openDropdown();
+            });
+            document.addEventListener('click', (e) => {
+                if (open && !brandsDropdown.contains(e.target)) closeDropdown();
+            });
+            toggleButton.addEventListener('keydown', (e) => {
+                const focusableItems = menu.querySelectorAll('a');
+                const firstItem = focusableItems[0];
+                const lastItem = focusableItems[focusableItems.length - 1];
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if(!open) openDropdown();
+                        firstItem.focus();
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if(!open) openDropdown();
+                        lastItem.focus();
+                        break;
+                    case 'Escape':
+                        if (open) {
+                            e.preventDefault();
+                            closeDropdown();
+                            toggleButton.focus();
+                        }
+                        break;
+                    case 'Tab':
+                        if (!e.shiftKey && document.activeElement === lastItem) {
+                            closeDropdown();
+                        }
+                        if (e.shiftKey && document.activeElement === firstItem) {
+                            closeDropdown();
+                        }
+                        break;
+                }
+            });
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('keydown', (e) => {
+                    const focusableItems = Array.from(menu.querySelectorAll('a'));
+                    const index = focusableItems.indexOf(document.activeElement);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = (index + 1) % focusableItems.length;
+                        focusableItems[nextIndex].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = (index - 1 + focusableItems.length) % focusableItems.length;
+                        focusableItems[prevIndex].focus();
+                    } else if (e.key === 'Escape') {
+                        closeDropdown();
+                        toggleButton.focus();
+                    }
+                });
+                link.addEventListener('click', () => {
+                    closeDropdown();
+                });
+            });
+        })();
+    </script>
+
+</body>
+</html>

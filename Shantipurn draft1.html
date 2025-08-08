@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHANTIPURN Flour Mill</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #fff8e7;
+            color: #4a3f35;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: #f6eedc;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .logo img {
+            height: 50px; /* Adjust as needed */
+            vertical-align: middle;
+        }
+
+        nav {
+            position: relative; /* for dropdown */
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            user-select: none;
+        }
+
+        nav a,
+        nav button {
+            font-weight: bold;
+            color: #4a3f35;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            position: relative;
+            padding: 8px 6px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus,
+        nav button:hover,
+        nav button:focus {
+            color: #bfa181;
+            background-color: rgba(191, 161, 129, 0.1);
+            outline: none;
+        }
+
+        /* Dropdown styles for Brands */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(30, 30, 200, 0.12);
+            padding: 12px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.35s ease, visibility 0.3s;
+            z-index: 200;
+        }
+
+        .dropdown.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            text-decoration: none;
+            color: #4a3f35;
+            padding: 8px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-radius: 8px;
+        }
+
+        .dropdown-menu a:hover,
+        .dropdown-menu a:focus {
+            background-color: #f3e8d0;
+            color: #9a7d56;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.5);
+        }
+
+        .dropdown-toggle::after {
+            content: '';
+            border-style: solid;
+            border-width: 5px 5px 0 5px;
+            border-color: #4a3f35 transparent transparent transparent;
+            display: inline-block;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown.open .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            max-width: 1200px;
+            margin: 32px auto 48px;
+            padding: 40px;
+            background-color: #f6eedc;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #3a2c22;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #6b5e4a;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        /* Product Section */
+        .product-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 48px;
+            padding: 40px;
+            background-color: #f9f5ee;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .product-image {
+            flex: 1;
+            text-align: center;
+            width: 283px;          
+            height: 401px;
+            position: relative;
+            background: rgba(249, 245, 238, 0.3); 
+            border-radius: 12px;
+            overflow: hidden; 
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: transparent;
+            padding: 12px;
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            flex: 1;
+            padding-left: 40px;
+        }
+
+        .product-details h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: #3a2c22;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .product-details p {
+            font-size: 18px;
+            color: #6b5e4a;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .product-features {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+
+        .product-features li {
+            margin-bottom: 0.75rem;
+            color: #6b5e4a;
+            font-size: 16px;
+            list-style-type: disc;
+        }
+
+
+        .pack-sizes {
+            display: flex;
+            gap: 12px;
+        }
+
+        .pack-size {
+            background-color: #bfa181;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .pack-size:hover {
+            background-color: #a88e70;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .product-section:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* About Section */
+        .about {
+            padding: 40px 20px;
+            background: #fff8e7;
+            text-align: center;
+            border-radius: 12px;
+            margin: 0 auto 48px;
+            max-width: 900px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+            user-select: none;
+        }
+
+        .about h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: #3a2c22;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: #6b5e4a;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            user-select: none;
+        }
+
+        /* Footer */
+        footer {
+            background: #4a3f35;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            user-select: none;
+            width: 100%;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                gap: 20px;
+                margin-top: 10px;
+            }
+
+            nav a,
+            nav button {
+                font-size: 15px;
+            }
+
+            .hero {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .product-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .product-image {
+                margin-bottom: 20px;
+            }
+
+            .product-details {
+                padding-left: 0;
+            }
+
+            .product-details h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">
+            <img src="Shantipurn logo.png" alt="SHANTIPURN" height="50">
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <div class="dropdown" id="brandsDropdown">
+                <button aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="brandsToggle">Brands</button>
+                <div class="dropdown-menu" role="menu" aria-labelledby="brandsToggle">
+                    <a href="Shantipurn.html" menuitem" tabindex="-1">Shantipurn</a>
+                    <a href="Charbhuja.html" role="menuitem" tabindex="-1">Charbhuja</a>
+                    <a href="BFM.html" role="menuitem" tabindex="-1">BFM</a>
+                    <a href="Meera_Bhog.html" role="menuitem" tabindex="-1">Meera Bhog</a>
+                </div>
+            </div>
+            <a href="#">Quality</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to SHANTIPURN Flour Mill</h1>
+        <p>Providing the finest quality flour and grain products since 2025. Discover our range of products made with care and tradition.</p>
+        <!-- You can add a call-to-action button here if needed -->
+    </section>
+
+    <section class="product-section">
+    <div class="product-image">
+        <img src="Shantipurn Atta.png" alt="Shantipurn Chakki Fresh Atta">
+    </div>
+    <div class="product-details">
+        <h2>Shantipurn Chakki Fresh Atta</h2>
+        <p>At <strong>Shantipurn Atta</strong>, we believe that purity, nutrition, and taste should come together in every bite. That’s why we bring you carefully selected premium wheat grains, cleaned and packed in a fully automated, hygienic environment — completely untouched by hand.</p>
+        
+        <p>Our traditional chakki grinding method ensures that the natural fiber, nutrition, and wholesome goodness of wheat are preserved, giving you atta that not only tastes fresh but also delivers soft, fluffy, and delicious rotis, day after day.</p>
+        
+        <p>Experience the goodness of health, purity, and tradition with every meal.</p>
+
+        <ul class="product-features">
+            <li>100% Pure Chakki Fresh Atta — No Maida Added</li>
+            <li>Made from premium, carefully selected wheat grains</li>
+            <li>Stone-ground to retain natural nutrients and fiber</li>
+            <li>High water absorption for extra soft rotis and chapatis</li>
+            <li>Rich in fiber to support better digestion</li>
+            <li>Processed & packed in a fully automated, hygienic facility</li>
+        </ul>
+
+        <div class="pack-sizes">
+            <strong>Available Pack Sizes:</strong>
+            <span class="pack-size">5kg</span>
+            <span class="pack-size">10kg</span>
+            <span class="pack-size">30kg</span>
+            <span class="pack-size">45kg</span>
+            <span class="pack-size">50kg</span>
+        </div>
+    </div>
+</section>
+
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Maida.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Maida</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">500g</span>
+                <span class="pack-size">1kg</span>
+                <span class="pack-size">30kg</span>
+                <span class="pack-size">45kg</span>
+                <span class="pack-size">50kg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Besan.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Besan</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">500g</span>
+                <span class="pack-size">1kg</span>
+                <span class="pack-size">30kg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Suji.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Suji</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">500g</span>
+                <span class="pack-size">1kg</span>
+                <span class="pack-size">30kg</span>
+                <span class="pack-size">50kg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Dalia.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Dalia</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">500g</span>
+                <span class="pack-size">1kg</span>
+                <span class="pack-size">30kg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Sharbati Wheat.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Sharbati Wheat</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">30kg</span>
+                <span class="pack-size">50kg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-image">
+            <img src="Shantipurn Halwai Special Maida.png" alt="Shantipurn Besan">
+        </div>
+        <div class="product-details">
+            <h2> Halwai Special Maida</h2>
+            <p>Our Besan is made from carefully selected chana dal, ground to a fine texture. Ideal for preparing a variety of delicious snacks and dishes.</p>
+            <div class="pack-sizes">
+                <span class="pack-size">30kg</span>
+                <span class="pack-size">45kg</span>
+                <span class="pack-size">50kg</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>📍 Banera, Rajasthan | ☎️ +91 9929414444 | ✉️ shantipurnindia@gmail.com</p>
+        <p>© 2025 SHANTIPURN</p>
+    </footer>
+
+    <script>
+        (function() {
+            const brandsDropdown = document.getElementById('brandsDropdown');
+            const toggleButton = document.getElementById('brandsToggle');
+            const menu = brandsDropdown.querySelector('.dropdown-menu');
+            let open = false;
+
+            function openDropdown() {
+                brandsDropdown.classList.add('open');
+                toggleButton.setAttribute('aria-expanded', 'true');
+                open = true;
+            }
+            function closeDropdown() {
+                brandsDropdown.classList.remove('open');
+                toggleButton.setAttribute('aria-expanded', 'false');
+                open = false;
+            }
+            toggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (open) closeDropdown();
+                else openDropdown();
+            });
+            document.addEventListener('click', (e) => {
+                if (open && !brandsDropdown.contains(e.target)) closeDropdown();
+            });
+            toggleButton.addEventListener('keydown', (e) => {
+                const focusableItems = menu.querySelectorAll('a');
+                const firstItem = focusableItems[0];
+                const lastItem = focusableItems[focusableItems.length - 1];
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if(!open) openDropdown();
+                        firstItem.focus();
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if(!open) openDropdown();
+                        lastItem.focus();
+                        break;
+                    case 'Escape':
+                        if (open) {
+                            e.preventDefault();
+                            closeDropdown();
+                            toggleButton.focus();
+                        }
+                        break;
+                    case 'Tab':
+                        if (!e.shiftKey && document.activeElement === lastItem) {
+                            closeDropdown();
+                        }
+                        if (e.shiftKey && document.activeElement === firstItem) {
+                            closeDropdown();
+                        }
+                        break;
+                }
+            });
+            menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('keydown', (e) => {
+          const focusableItems = Array.from(menu.querySelectorAll('a'));
+          const index = focusableItems.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (index + 1) % focusableItems.length;
+            focusableItems[nextIndex].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIndex = (index - 1 + focusableItems.length) % focusableItems.length;
+            focusableItems[prevIndex].focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            toggleButton.focus();
+          }
+        });
+        link.addEventListener('click', () => {
+          closeDropdown();
+        });
+      });
+    })();
+
+    const slides = document.querySelectorAll('.slider-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    let currentSlide = 0;
+    const slideIntervalTime = 4000;
+    let slideInterval = null;
+
+    function goToSlide(n) {
+      slides.forEach((slide, idx) => {
+        const isActive = idx === n;
+        slide.classList.toggle('active', isActive);
+        slide.setAttribute('aria-hidden', !isActive);
+      });
+      dots.forEach((dot, idx) => {
+        const isActive = idx === n;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-selected', isActive);
+        dot.tabIndex = isActive ? 0 : -1;
+      });
+      currentSlide = n;
+    }
+    function nextSlide() {
+      goToSlide((currentSlide + 1) % slides.length);
+    }
+    function startAutoSlide() {
+      slideInterval = setInterval(nextSlide, slideIntervalTime);
+    }
+    function stopAutoSlide() {
+      clearInterval(slideInterval);
+    }
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        stopAutoSlide();
+        goToSlide(parseInt(dot.dataset.index));
+        startAutoSlide();
+      });
+      dot.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          stopAutoSlide();
+          goToSlide(parseInt(dot.dataset.index));
+          startAutoSlide();
+        }
+      });
+    });
+    goToSlide(0);
+    startAutoSlide();
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, {threshold: 0.2});
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
