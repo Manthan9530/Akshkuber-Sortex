@@ -469,6 +469,43 @@ nav a:hover,
   .hamburger { font-size: 22px; margin-left: 5px; }
 }
 
+        /* Add this at the bottom of your CSS */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* One column on mobile */
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .flip-card {
+    height: auto; /* Let height adjust to content */
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    padding: 15px;
+  }
+
+  .flip-card-front img {
+    width: 140px; /* Smaller images on mobile */
+    max-width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .card-text h3 {
+    font-size: 18px;
+  }
+
+  .card-text ul {
+    font-size: 14px;
+  }
+
+  .pack-size {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
 
     </style>
 </head>
@@ -853,6 +890,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
