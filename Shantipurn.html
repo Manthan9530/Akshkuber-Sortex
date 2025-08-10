@@ -657,53 +657,107 @@ footer a:hover {
         <p>© 2025 SHANTIPURN</p>
     </footer>
 
-    <script>
-        // Desktop Brands dropdown
-(function() {
-  const brandsDropdown = document.getElementById('brandsDropdown');
-  const toggleButton = document.getElementById('brandsToggle');
-  const menu = brandsDropdown.querySelector('.dropdown-menu');
-  let open = false;
+<script>
+    // Desktop Brands dropdown with keyboard accessibility
+    (function() {
+        const brandsDropdown = document.getElementById('brandsDropdown');
+        const toggleButton = document.getElementById('brandsToggle');
+        const menu = brandsDropdown.querySelector('.dropdown-menu');
+        let open = false;
 
-  function openDropdown() {
-    brandsDropdown.classList.add('open');
-    toggleButton.setAttribute('aria-expanded', 'true');
-    open = true;
-  }
-  function closeDropdown() {
-    brandsDropdown.classList.remove('open');
-    toggleButton.setAttribute('aria-expanded', 'false');
-    open = false;
-  }
+        function openDropdown() {
+            brandsDropdown.classList.add('open');
+            toggleButton.setAttribute('aria-expanded', 'true');
+            open = true;
+        }
+        function closeDropdown() {
+            brandsDropdown.classList.remove('open');
+            toggleButton.setAttribute('aria-expanded', 'false');
+            open = false;
+        }
 
-  toggleButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    open ? closeDropdown() : openDropdown();
-  });
+        toggleButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (open) closeDropdown();
+            else openDropdown();
+        });
 
-  document.addEventListener('click', (e) => {
-    if (open && !brandsDropdown.contains(e.target)) closeDropdown();
-  });
-})();
+        document.addEventListener('click', (e) => {
+            if (open && !brandsDropdown.contains(e.target)) closeDropdown();
+        });
 
-// Mobile hamburger menu toggle
-function toggleSidebar() {
-  const sidebar = document.getElementById('mobileSidebar');
-  const isOpen = sidebar.classList.toggle('show');
-  document.body.classList.toggle('sidebar-open', isOpen);
-}
+        toggleButton.addEventListener('keydown', (e) => {
+            const focusableItems = menu.querySelectorAll('a');
+            const firstItem = focusableItems[0];
+            const lastItem = focusableItems[focusableItems.length - 1];
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (!open) openDropdown();
+                    firstItem.focus();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (!open) openDropdown();
+                    lastItem.focus();
+                    break;
+                case 'Escape':
+                    if (open) {
+                        e.preventDefault();
+                        closeDropdown();
+                        toggleButton.focus();
+                    }
+                    break;
+                case 'Tab':
+                    if (!e.shiftKey && document.activeElement === lastItem) {
+                        closeDropdown();
+                    }
+                    if (e.shiftKey && document.activeElement === firstItem) {
+                        closeDropdown();
+                    }
+                    break;
+            }
+        });
 
-// Mobile Brands dropdown inside sidebar
-function toggleMobileBrands(e) {
-  e.preventDefault();
-  const dropdown = document.getElementById('mobileBrandsDropdown');
-  const arrow = document.getElementById('brandsArrow');
-  dropdown.classList.toggle('show');
-  arrow.classList.toggle('rotated');
-}
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('keydown', (e) => {
+                const focusableItems = Array.from(menu.querySelectorAll('a'));
+                const index = focusableItems.indexOf(document.activeElement);
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const nextIndex = (index + 1) % focusableItems.length;
+                    focusableItems[nextIndex].focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prevIndex = (index - 1 + focusableItems.length) % focusableItems.length;
+                    focusableItems[prevIndex].focus();
+                } else if (e.key === 'Escape') {
+                    closeDropdown();
+                    toggleButton.focus();
+                }
+            });
+            link.addEventListener('click', () => {
+                closeDropdown();
+            });
+        });
+    })();
 
-    </script>
+    // Mobile hamburger menu toggle
+    function toggleSidebar() {
+        const sidebar = document.getElementById('mobileSidebar');
+        const isOpen = sidebar.classList.toggle('show');
+        document.body.classList.toggle('sidebar-open', isOpen);
+    }
 
+    // Mobile Brands dropdown inside sidebar
+    function toggleMobileBrands(e) {
+        e.preventDefault();
+        const dropdown = document.getElementById('mobileBrandsDropdown');
+        const arrow = document.getElementById('brandsArrow');
+        dropdown.classList.toggle('show');
+        arrow.classList.toggle('rotated');
+    }
+</script>
 </body>
 </html>
 
