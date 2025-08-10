@@ -658,24 +658,33 @@ nav a:hover,
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
     document.getElementById("triggerBrands").addEventListener("click", function (e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Scroll to top so Brands menu is visible
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    // Delay the dropdown open so it appears AFTER scroll completes
+  if (window.innerWidth <= 768) {
+    // Mobile: open hamburger menu and expand Brands list
+    const sidebar = document.getElementById("mobileSidebar");
+    if (!sidebar.classList.contains("show")) {
+      toggleSidebar();
+    }
+    const mobileBrandsDropdown = document.getElementById("mobileBrandsDropdown");
+    const arrow = document.getElementById("brandsArrow");
+    if (!mobileBrandsDropdown.classList.contains("show")) {
+      mobileBrandsDropdown.classList.add("show");
+      arrow.classList.add("rotated");
+    }
+  } else {
+    // Desktop: scroll up and open dropdown
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(() => {
       const brandsToggle = document.getElementById("brandsToggle");
       const brandsDropdown = document.getElementById("brandsDropdown");
-
       if (!brandsDropdown.classList.contains("open")) {
-        brandsToggle.click(); // Triggers your existing logic
+        brandsToggle.click();
       }
-    }, 500); // wait 0.5s for scroll
-  });
+    }, 500);
+  }
+});
+
 
   function toggleSidebar() {
   const sidebar = document.getElementById('mobileSidebar');
@@ -709,6 +718,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
