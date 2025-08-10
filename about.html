@@ -389,16 +389,30 @@ nav a:hover,
 }
 
 @media screen and (max-width: 768px) {
+  header {
+    padding: 10px 15px; /* reduce side padding to free space */
+  }
+
   .logo img {
-    max-width: 150px; /* or even 120px if you want more space */
+    max-width: 180px; /* larger than before */
     height: auto;
   }
-}
-@media screen and (max-width: 480px) {
-  .logo img {
-    max-width: 120px;
+
+  .hamburger {
+    font-size: 24px; /* slightly smaller so it fits better */
   }
 }
+
+@media screen and (max-width: 480px) {
+  header {
+    padding: 8px 12px; /* tighter padding for very small screens */
+  }
+
+  .logo img {
+    max-width: 160px;
+  }
+}
+
 
     
   </style>
@@ -679,4 +693,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
