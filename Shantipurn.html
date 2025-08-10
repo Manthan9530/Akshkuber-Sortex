@@ -365,31 +365,68 @@ footer a:hover {
 
         }
 
+        @media screen and (max-width: 768px) {
+  .logo img { max-width: 180px; height: auto; }
+}
+@media screen and (max-width: 480px) {
+  .logo img { max-width: 160px; }
+}
+@media screen and (max-width: 360px) {
+  .logo img { max-width: 150px; }
+}
+
+        @media screen and (max-width: 480px) {
+  .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+        
+
     </style>
 </head>
 <body>
 
     <header>
-        <a href="/" class="logo">
-            <img src="Akshkuber logo.png" alt="SHANTIPURN" height="50">
-        </a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <div class="dropdown" id="brandsDropdown">
-                <button aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="brandsToggle">Brands</button>
-                <div class="dropdown-menu" role="menu" aria-labelledby="brandsToggle">
-                    <a href="Shantipurn.html" menuitem" tabindex="-1">Shantipurn</a>
-                    <a href="Charbhuja.html" role="menuitem" tabindex="-1">Charbhuja</a>
-                    <a href="BFM.html" role="menuitem" tabindex="-1">BFM</a>
-                    <a href="Meera_Bhog.html" role="menuitem" tabindex="-1">Meera Bhog</a>
-                </div>
-            </div>
-            <a href="quality.html">Quality</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+    <div class="logo">
+        <img src="Akshkuber logo.png" alt="Akshkuber" class="logo-img">
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <div class="dropdown" id="brandsDropdown">
+        <button aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="brandsToggle">Brands</button>
+        <div class="dropdown-menu" role="menu" aria-labelledby="brandsToggle">
+          <a href="Shantipurn.html" role="menuitem" tabindex="-1">Shantipurn</a>
+          <a href="Charbhuja.html" role="menuitem" tabindex="-1">Charbhuja</a>
+          <a href="BFM.html" role="menuitem" tabindex="-1">BFM</a>
+          <a href="Meera_Bhog.html" role="menuitem" tabindex="-1">Meera Bhog</a>
+        </div>
+      </div>
+      <a href="quality.html">Quality</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hamburger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
 
+  <div id="mobileSidebar" class="mobile-sidebar">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      
+      <a href="#" onclick="toggleMobileBrands(event)">Brands <i id ="brandsArrow" class="fas fa-chevron-down"></i></a>
+      <div id="mobileBrandsDropdown" class="mobile-brands-links">
+        <a href="Shantipurn.html">Shantipurn</a>
+        <a href="Charbhuja.html">Charbhuja</a>
+        <a href="BFM.html">BFM</a>
+        <a href="Meera_Bhog.html">Meera Bhog</a>
+      </div>
+
+      <a href="quality.html">Quality</a>
+      <a href="contact.html">Contact</a>
+  </div>
     <img src="Shantipurn_Baner.png" alt="Shantipurn Premium Flour" class="full-width-img">
     <img src="Choose_Shantipurn.png" alt="Traditional Indian Cooking" class="full-width-img">
 
@@ -703,5 +740,6 @@ footer a:hover {
 
 </body>
 </html>
+
 
 
