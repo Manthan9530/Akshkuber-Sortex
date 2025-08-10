@@ -35,109 +35,140 @@
             z-index: 1000;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: bold;
-            user-select: none;
-        }
+    /* Navbar Base */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #fff;
+}
 
-        .logo img {
-            height: 50px; /* Adjust as needed */
-            vertical-align: middle;
-        }
+.logo img {
+    max-width: 200px;
+    height: auto;
+}
 
-        nav {
-            position: relative; /* for dropdown */
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            user-select: none;
-        }
+/* Desktop Menu */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
 
-        nav a,
-        nav button {
-            font-weight: bold;
-            color: #4a3f35;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            position: relative;
-            padding: 8px 6px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+.nav-links li {
+    position: relative;
+}
 
-        nav a:hover,
-        nav a:focus,
-        nav button:hover,
-        nav button:focus {
-            color: #bfa181;
-            background-color: rgba(191, 161, 129, 0.1);
-            outline: none;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
 
-        /* Dropdown styles for Brands */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    list-style: none;
+    padding: 10px 0;
+}
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            min-width: 180px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(30, 30, 200, 0.12);
-            padding: 12px 0;
-            margin-top: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.35s ease, visibility 0.3s;
-            z-index: 200;
-        }
+.dropdown.open .dropdown-menu {
+    display: block;
+}
 
-        .dropdown.open .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+/* Hamburger Menu (Mobile) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
 
-        .dropdown-menu a {
-            display: block;
-            text-decoration: none;
-            color: #4a3f35;
-            padding: 8px 24px;
-            font-weight: 600;
-            font-size: 15px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            border-radius: 8px;
-        }
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #333;
+}
 
-        .dropdown-menu a:hover,
-        .dropdown-menu a:focus {
-            background-color: #f3e8d0;
-            color: #9a7d56;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.5);
-        }
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
 
-        .dropdown-toggle::after {
-            content: '';
-            border-style: solid;
-            border-width: 5px 5px 0 5px;
-            border-color: #4a3f35 transparent transparent transparent;
-            display: inline-block;
-            margin-left: 6px;
-            vertical-align: middle;
-            transition: transform 0.3s ease;
-        }
+.mobile-sidebar.show {
+    left: 0;
+}
 
+.mobile-sidebar .close-btn {
+    font-size: 24px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.mobile-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mobile-sidebar a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Mobile Dropdown in Sidebar */
+.mobile-dropdown {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.mobile-dropdown.show {
+    display: block;
+}
+
+#brandsArrow {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+#brandsArrow.rotated {
+    transform: rotate(180deg);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .logo img { max-width: 180px; }
+}
+@media screen and (max-width: 480px) {
+    .logo img { max-width: 160px; }
+}
+@media screen and (max-width: 360px) {
+    .logo img { max-width: 150px; }
+}
+
+        
         .dropdown.open .dropdown-toggle::after {
             transform: rotate(180deg);
         }
@@ -422,44 +453,63 @@ footer a:hover {
 <body>
 
     <header>
+        <header>
+    <nav class="navbar">
         <div class="logo">
-        <img src="Akshkuber logo.png" alt="Akshkuber" class="logo-img">
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <div class="dropdown" id="brandsDropdown">
-        <button aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="brandsToggle">Brands</button>
-        <div class="dropdown-menu" role="menu" aria-labelledby="brandsToggle">
-          <a href="Shantipurn.html" role="menuitem" tabindex="-1">Shantipurn</a>
-          <a href="Charbhuja.html" role="menuitem" tabindex="-1">Charbhuja</a>
-          <a href="BFM.html" role="menuitem" tabindex="-1">BFM</a>
-          <a href="Meera_Bhog.html" role="menuitem" tabindex="-1">Meera Bhog</a>
+            <a href="index.html">
+                <img src="images/logo.png" alt="AkshKuber Sortex">
+            </a>
         </div>
-      </div>
-      <a href="quality.html">Quality</a>
-      <a href="contact.html">Contact</a>
+
+        <!-- Desktop Menu -->
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li id="brandsDropdown" class="dropdown">
+                <a href="#" id="brandsToggle" aria-haspopup="true" aria-expanded="false">
+                    Explore Our Brands
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="Shantipurn.html">Shantipurn</a></li>
+                    <li><a href="Rajdhani.html">Rajdhani</a></li>
+                    <li><a href="Annapurna.html">Annapurna</a></li>
+                </ul>
+            </li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <!-- Hamburger Button (Mobile) -->
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Sidebar -->
+        <div id="mobileSidebar" class="mobile-sidebar">
+            <div class="close-btn" onclick="toggleSidebar()">&times;</div>
+            <ul>
+                <li><a href="index.html" onclick="toggleSidebar()">Home</a></li>
+                <li>
+                    <a href="#" onclick="toggleMobileBrands(event)">
+                        Explore Our Brands
+                        <span id="brandsArrow">&#9662;</span>
+                    </a>
+                    <ul id="mobileBrandsDropdown" class="mobile-dropdown">
+                        <li><a href="Shantipurn.html" onclick="toggleSidebar()">Shantipurn</a></li>
+                        <li><a href="Rajdhani.html" onclick="toggleSidebar()">Rajdhani</a></li>
+                        <li><a href="Annapurna.html" onclick="toggleSidebar()">Annapurna</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" onclick="toggleSidebar()">About Us</a></li>
+                <li><a href="contact.html" onclick="toggleSidebar()">Contact Us</a></li>
+            </ul>
+        </div>
     </nav>
-    <div class="hamburger" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-    </div>
+</header>
+
     </header>
 
-  <div id="mobileSidebar" class="mobile-sidebar">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      
-      <a href="#" onclick="toggleMobileBrands(event)">Brands <i id ="brandsArrow" class="fas fa-chevron-down"></i></a>
-      <div id="mobileBrandsDropdown" class="mobile-brands-links">
-        <a href="Shantipurn.html">Shantipurn</a>
-        <a href="Charbhuja.html">Charbhuja</a>
-        <a href="BFM.html">BFM</a>
-        <a href="Meera_Bhog.html">Meera Bhog</a>
-      </div>
-
-      <a href="quality.html">Quality</a>
-      <a href="contact.html">Contact</a>
-  </div>
     <img src="Shantipurn_Baner.png" alt="Shantipurn Premium Flour" class="full-width-img">
     <img src="Choose_Shantipurn.png" alt="Traditional Indian Cooking" class="full-width-img">
 
@@ -794,6 +844,7 @@ footer a:hover {
 </script>
 </body>
 </html>
+
 
 
 
