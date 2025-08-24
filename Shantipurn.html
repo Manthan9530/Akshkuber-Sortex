@@ -224,9 +224,9 @@ nav button:focus {
   }
   .flip-card-front,
   .flip-card-back {
-    position: relative; /* stack naturally */
+    position: absolute; 
     width: 100%;
-    height: auto;
+    height: 100%;
     backface-visibility: hidden; /* disable flip on mobile */
     box-shadow: none; 
   }
@@ -276,10 +276,10 @@ nav button:focus {
 
 .flip-card-front {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     background-color: #fff;
-    gap: 32px;
+    gap: 15px;
 }
 
 .flip-card-front img {
@@ -956,6 +956,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
