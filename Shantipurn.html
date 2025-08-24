@@ -21,6 +21,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers content horizontally when it's narrower than the viewport */
+
         }
 
         header {
@@ -34,6 +39,7 @@
             width: 100%;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             z-index: 1000;
+            width: 100%;
         }
 
         .logo {
@@ -319,6 +325,7 @@ footer a:hover {
 
         .full-width-img {
             width: 100%;
+            height: auto;
             display: block;
             margin: 0;
             padding: 0;
@@ -327,6 +334,12 @@ footer a:hover {
         
 
         @media (max-width: 768px) {
+             nav {
+        display: none; /* Hide desktop nav */
+    }
+    .hamburger {
+        display: block; /* Show hamburger icon */
+    }
             header {
                 padding: 10px 15px; 
                 flex-direction: row;
@@ -408,6 +421,58 @@ footer a:hover {
     font-size: 12px;
     padding: 4px 8px;
   }
+
+            .products-grid {
+        grid-template-columns: 1fr; /* One column on tablets and mobiles */
+        gap: 20px;
+        padding: 20px;
+    }
+    .flip-card {
+        height: auto; /* Allow height to adjust based on content */
+        max-width: 400px; /* Constrain width for better appearance on larger tablets */
+        margin: 0 auto; /* Center the cards */
+    }
+    .flip-card-front,
+    .flip-card-back {
+        padding: 15px; /* Reduce padding */
+    }
+    .flip-card-front {
+        flex-direction: column; /* Stack image and text vertically */
+        align-items: center;
+        text-align: center;
+    }
+            .flip-card-front img {
+        width: 120px; /* Smaller image size */
+        max-width: 100%;
+        margin-bottom: 12px;
+    }
+    .card-text {
+        text-align: center; /* Center text for column layout */
+    }
+    .card-text ul {
+        text-align: left; /* Keep list items left-aligned */
+        padding-left: 20px;
+    }
+    .card-text h3 {
+        font-size: 18px; /* Smaller heading */
+    }
+           .card-text ul {
+        font-size: 14px; /* Smaller list text */
+    }
+    .pack-sizes {
+        justify-content: center; /* Center pack sizes */
+    }
+    .pack-size {
+        font-size: 12px; /* Smaller pack size text */
+        padding: 4px 8px;
+    }
+    .flip-card-back h4 {
+        font-size: 16px; /* Smaller heading on back */
+    }
+    .flip-card-back p {
+        font-size: 14px; /* Smaller paragraph text on back */
+    } 
+            
         }
 
         .hamburger {
@@ -418,7 +483,7 @@ footer a:hover {
 }
 
 .mobile-sidebar {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   right: 0;
@@ -490,16 +555,51 @@ nav a:hover,
   border-radius: 6px;
   font-weight: bold;
 }
-
+        
 /* Mobile logo sizing same as About */
 
-@media screen and (max-width: 480px) {
-  header { padding: 8px 12px; }
-  .logo img { max-width: 160px; }
+@media (max-width: 480px) {
+    header {
+        padding: 8px 12px; /* Smaller header padding */
+    }
+    .logo img {
+        max-width: 160px; /* Smaller logo */
+    }
+    .hamburger {
+        font-size: 22px;
+        margin-left: 5px;
+    }
+    .mobile-sidebar {
+        width: 200px; /* Make sidebar narrower for very small screens */
+        padding: 50px 15px 15px;
+    }
+    .flip-card {
+        max-width: 100%; /* Allow cards to take full width on very small screens */
+    }
+    .flip-card-front,
+    .flip-card-back {
+        padding: 10px; /* Even less padding */
+    }
+    .card-text h3 {
+        font-size: 16px; /* Even smaller heading */
+    }
+    .card-text ul,
+    .flip-card-back p {
+        font-size: 13px; /* Even smaller text */
+    }
+    .pack-size {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
 }
+        
 @media screen and (max-width: 360px) {
   .logo img { max-width: 150px; }
-  .hamburger { font-size: 22px; margin-left: 5px; }
+  .hamburger { font-size: 20px; margin-left: 5px; }
+  .mobile-sidebar { width: 180px; }
+  .card-text h3 { font-size: 15px; }
+  .card-text ul, .flip-card-back p { font-size: 12px; }
+  .pack-size { font-size: 10px; padding: 2px 5px; }
 }
 
 
@@ -882,10 +982,28 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 });        
+
+        document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('mobileSidebar');
+    const hamburger = document.querySelector('.hamburger');
+    if (sidebar.classList.contains('show') && !sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        toggleSidebar();
+    }
+});
+
+        document.querySelectorAll('#mobileSidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        // Only close if it's not the "Brands" toggle
+        if (link.parentElement.id !== 'mobileBrandsDropdown' && link.getAttribute('onclick') !== 'toggleMobileBrands(event)') {
+            toggleSidebar();
+        }
+    });
+});
     </script>
 
 </body>
 </html>
+
 
 
 
