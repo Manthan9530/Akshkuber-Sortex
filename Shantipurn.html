@@ -215,6 +215,14 @@ nav button:focus {
     gap: 20px;
     padding: 20px;
   }
+    .flip-card {
+    min-height: auto;  /* Let it adjust naturally on small screens */
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: relative; /* Prevent stacking issue on small screens */
+    height: auto;
+  }
 }
 
 .flip-card {
@@ -883,6 +891,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
