@@ -227,9 +227,12 @@ nav button:focus {
     position: relative; /* stack naturally */
     width: 100%;
     height: auto;
-    transform: none; /* disable flip on mobile */
+    backface-visibility: hidden; /* disable flip on mobile */
     box-shadow: none; 
   }
+}
+    .flip-card-back {
+  transform: rotateY(180deg); /* ensure back is rotated */
 }
 
 .flip-card {
@@ -953,6 +956,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
