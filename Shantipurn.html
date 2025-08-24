@@ -216,12 +216,19 @@ nav button:focus {
     padding: 20px;
   }
     .flip-card {
-    height: auto;  /* Let it adjust naturally on small screens */
+    height: auto; /* allow content to decide height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;  /* Let it adjust naturally on small screens */
   }
   .flip-card-front,
   .flip-card-back {
-    position: relative; /* Prevent stacking issue on small screens */
+    position: relative; /* stack naturally */
+    width: 100%;
     height: auto;
+    transform: none; /* disable flip on mobile */
+    box-shadow: none; 
   }
 }
 
@@ -454,15 +461,70 @@ nav a:hover,
         text-align: center;
     }
 
-    .flip-card-front img { width: 120px; margin-bottom: 12px; }
-    .card-text { text-align: center; }
-    .card-text ul { text-align: left; padding-left: 20px; }
-    .card-text h3 { font-size: 18px; }
-    .card-text ul { font-size: 14px; }
-    .pack-sizes { justify-content: center; }
-    .pack-size { font-size: 12px; padding: 4px 8px; }
-    .flip-card-back h4 { font-size: 16px; }
-    .flip-card-back p { font-size: 14px; }
+    @media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* 1 card per row */
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .flip-card {
+    height: auto; /* allow content to decide height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: relative; /* stack naturally */
+    width: 100%;
+    height: auto;
+    transform: none; /* disable flip on mobile */
+    box-shadow: none; 
+  }
+
+  .flip-card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center image + text */
+    gap: 15px;
+  }
+
+  .flip-card-front img {
+    width: 150px; /* bigger image on mobile */
+    margin: 0 auto;
+  }
+
+  .card-text {
+    text-align: center; /* center text under image */
+  }
+
+  .card-text h3 {
+    font-size: 18px;
+  }
+
+  .card-text ul {
+    font-size: 14px;
+    padding-left: 0; /* remove left bullets indent */
+    list-style-position: inside;
+  }
+
+  .pack-sizes {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pack-size {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
 }
 
 @media (max-width: 480px) {
@@ -891,6 +953,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
