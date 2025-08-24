@@ -236,6 +236,20 @@ nav button:focus {
 .flip-card-back {
   transform: rotateY(180deg); /* show back on flip */
 }
+    /* === Flip Card Auto-Height Fix === */
+.flip-card {
+  height: auto; /* let content control the height */
+}
+
+.flip-card-inner {
+  min-height: 100%; /* stretch to tallest side */
+}
+
+.flip-card-front,
+.flip-card-back {
+  height: auto; /* adjust height based on content */
+}
+
     .flip-card {
   background: transparent;
   perspective: 1000px; /* gives the 3D effect */
@@ -511,13 +525,6 @@ nav a:hover,
     flex-direction: column;
     align-items: center;
     padding: 20px;
-  }
-
-  .flip-card-front,
-  .flip-card-back {
-      position: relative;
-    width: 100%;
-    box-shadow: none; 
   }
 
   .flip-card-front {
@@ -988,6 +995,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
