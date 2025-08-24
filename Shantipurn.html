@@ -228,7 +228,7 @@ nav button:focus {
   top: 0; 
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden; /* Safari/iOS fix */
 }
@@ -518,8 +518,6 @@ nav a:hover,
     position: relative; /* stack naturally */
     width: 100%;
     height: auto;
-    transform: none; /* disable flip on mobile */
-    box-shadow: none; 
   }
 
   .flip-card-front {
@@ -990,6 +988,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
